@@ -26,7 +26,7 @@ class LeaguesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     func setupViewModel() {
-        viewModel = LeaguesViewModel(sportsAPI: SportsAPI(),sport: sport)
+        viewModel = LeaguesViewModel(sportsRepository: SportsRepositoryImpl(api: SportsAPI()),sport: sport)
         
         viewModel.onDataUpdated = { [weak self] in
             self?.tableView.reloadData()
@@ -51,13 +51,17 @@ class LeaguesTableViewController: UITableViewController {
         let league = viewModel.leagues[indexPath.row]
         cell.leagueName.text = league.leagueName
         if let leagueLogo =  league.leagueLogo{
-            cell.leagueImage.kf.setImage(with:URL(string: leagueLogo) )
+            cell.leagueImage.kf.setImage(with:URL(string: leagueLogo)  ,placeholder: UIImage(named:sport.logo))
+        }else{
+            cell.leagueImage.image = UIImage(named: sport.logo)
         }
        
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let leaguesDetailsVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesDetails") as! LeaguesDetailsCollectionViewController
+        let leaguesDetailsVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesDetailsViewController") as! LeaguesDetailsViewController
+        leaguesDetailsVC.sport = self.sport
+        leaguesDetailsVC.leaguseID = Int(viewModel.leagues[indexPath.row].leagueKey)
         navigationController?.pushViewController(leaguesDetailsVC, animated: true)
     }
     

@@ -10,7 +10,7 @@ import UIKit
 private let reuseIdentifier = "SportCollectionViewCell"
 
 class SportCollectionViewController: UICollectionViewController {
-    let sports = [Sport.football,Sport.basketball,Sport.football,Sport.basketball]
+    let sports = [Sport.football,Sport.basketball,Sport.cricket,Sport.tennis]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +63,10 @@ class SportCollectionViewController: UICollectionViewController {
             sportname = "FootBall"
         case .basketball:
             sportname = "BasketBall"
+        case .cricket:
+            sportname = "Cricket"
+        case .tennis:
+            sportname = "Tennis"
         }
         cell.sportName.text = sportname
         cell.sportImage.image = UIImage(named: sportname)

@@ -6,24 +6,10 @@
 //
 
 import Foundation
+import CoreData
 
-class LeagueResponse: Codable {
-    let success: Int
-    let result: [League]
-    
-    init(success: Int, result: [League]) {
-        self.success = success
-        self.result = result
-    }
-}
-struct League: Codable {
-    let leagueKey: Int
-    let leagueName: String
-    let countryKey: Int
-    let countryName: String
-    let leagueLogo: String?
-    let countryLogo: String?
-    
+class League:NSManagedObject, Decodable {
+
     enum CodingKeys: String, CodingKey {
         case leagueKey = "league_key"
         case leagueName = "league_name"
@@ -33,13 +19,25 @@ struct League: Codable {
         case countryLogo = "country_logo"
     }
     
-    init(leagueKey: Int, leagueName: String, countryKey: Int, countryName: String, leagueLogo: String?, countryLogo: String?) {
-        self.leagueKey = leagueKey
-        self.leagueName = leagueName
-        self.countryKey = countryKey
-        self.countryName = countryName
-        self.leagueLogo = leagueLogo
-        self.countryLogo = countryLogo
+   
+    required convenience init(from decoder: Decoder) throws {
+        guard let context = decoder.userInfo[CodingUserInfoKey.managedObjectContext] as? NSManagedObjectContext else {
+             throw DecoderConfigurationError.missingManagedObjectContext
+           }
+        self.init(context: context)
+
+           let container = try decoder.container(keyedBy: CodingKeys.self)
+        leagueKey = try container.decode(Int32.self, forKey: .leagueKey)
+        leagueName = try container.decode(String.self, forKey: .leagueName)
+        countryKey = try container.decode(Int32.self, forKey: .countryKey)
+        countryName = try container.decodeIfPresent(String.self, forKey: .countryName)
+        leagueLogo = try container.decodeIfPresent(String.self, forKey: .leagueLogo)
+        countryLogo = try container.decodeIfPresent(String.self, forKey: .countryLogo)
     }
     
 }
+
+enum DecoderConfigurationError: Error {
+  case missingManagedObjectContext
+}
+

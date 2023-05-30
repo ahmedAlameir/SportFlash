@@ -9,16 +9,16 @@ import Foundation
 
 struct Player: Codable {
     let playerKey: Int
-    let playerName: String
-    let playerNumber: String
+    let playerName: String?
+    let playerNumber: String?
     let playerCountry: String?
-    let playerType: String
-    let playerAge: String
-    let playerMatchPlayed: String
-    let playerGoals: String
-    let playerYellowCards: String
-    let playerRedCards: String
-    let playerImage: String
+    let playerType: String?
+    let playerAge: String?
+    let playerMatchPlayed: String?
+    let playerGoals: String?
+    let playerYellowCards: String?
+    let playerRedCards: String?
+    let playerImage: String?
     enum CodingKeys: String, CodingKey {
             case playerKey = "player_key"
             case playerName = "player_name"
@@ -35,10 +35,10 @@ struct Player: Codable {
 }
 
 struct Team: Codable {
-    let teamKey: String
-    let teamName: String
-    let teamLogo: String
-    let players: [Player]
+    let teamKey: Int?
+    let teamName: String?
+    let teamLogo: String?
+    let players: [Player]?
     enum CodingKeys: String, CodingKey {
           case teamKey = "team_key"
           case teamName = "team_name"
@@ -47,7 +47,4 @@ struct Team: Codable {
       }
 }
 
-struct TeamResponse: Codable {
-    let success: Int
-    let result: [Team]
-}
+

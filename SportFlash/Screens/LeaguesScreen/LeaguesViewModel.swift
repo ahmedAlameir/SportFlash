@@ -7,25 +7,30 @@
 
 import Foundation
 class LeaguesViewModel{
-    private let sportsAPI: SportsAPI
     private let sport: Sport
-    
+    private let sportsRepository: SportsRepository
+
     var leagues: [League] = [] {
         didSet {
             notifyDataUpdated()
         }
     }
     var onDataUpdated: (() -> Void)?
-    init(sportsAPI: SportsAPI,sport: Sport) {
-        self.sportsAPI = sportsAPI
+    init(sportsRepository: SportsRepository,sport: Sport) {
+        self.sportsRepository = sportsRepository
         self.sport = sport
     }
     
     func fetchLeagues() {
-        sportsAPI.fetchLeagues(for: sport) { result in
+        sportsRepository.fetchLeagues(for: sport) { result in
             switch result {
             case .success(let leagues):
-                self.leagues = leagues
+                if let leagues = leagues{
+                    self.leagues = leagues
+
+                }else{
+                    print("nill//////////////////////////////////////////")
+                }
             case .failure(let error):
                 print("Error: \(error)")
             }
