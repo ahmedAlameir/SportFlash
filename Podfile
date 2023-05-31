@@ -7,7 +7,6 @@ target 'SportFlash' do
 
   # Pods for SportFlash
   pod 'Kingfisher'
-  pod 'lottie-ios'
 
   target 'SportFlashTests' do
     inherit! :search_paths

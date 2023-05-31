@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21E258" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="League" representedClassName=".League" syncable="YES" codeGenerationType="category">
+    <entity name="LeagueEntity" representedClassName="LeagueEntity" syncable="YES" codeGenerationType="class">
         <attribute name="countryKey" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="countryLogo" optional="YES" attributeType="String"/>
         <attribute name="countryName" optional="YES" attributeType="String"/>
         <attribute name="leagueKey" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="leagueLogo" optional="YES" attributeType="String"/>
         <attribute name="leagueName" optional="YES" attributeType="String"/>
+        <attribute name="sport" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="TeamEntity" representedClassName="TeamEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="teamKey" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="teamLogo" optional="YES" attributeType="String"/>
+        <attribute name="teamName" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="League" positionX="-63" positionY="-18" width="128" height="119"/>
+        <element name="LeagueEntity" positionX="-63" positionY="-18" width="128" height="134"/>
+        <element name="TeamEntity" positionX="-54" positionY="45" width="128" height="74"/>
     </elements>
 </model>

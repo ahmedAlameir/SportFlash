@@ -6,29 +6,37 @@
 //
 
 import Foundation
+import Network
 class SportsRepositoryImpl:SportsRepository{
     let api:SportsAPI
+    let sportdb:DatabaseManager
+
     private let apiKey: String
     
-    init(api :SportsAPI){
+    init(api :SportsAPI,sportdb :DatabaseManager){
         self.api = api
+        self.sportdb = sportdb
+
         self.apiKey = "cdf813aa5d986f1758f3a4a36297867a848095b7ee2ac2c68073af05bb1c7a5c"
         
     }
     func fetchLeagues(for sport: Sport, completion: @escaping (Result<[League]?, Error>) -> Void) {
+        
         let queryItems = [
             URLQueryItem(name: "met", value: "Leagues"),
-            URLQueryItem(name: "APIkey", value: apiKey)
+            URLQueryItem(name: "APIkey", value: self.apiKey)
         ]
-        api.fetchData(for: sport, queryItems: queryItems) { (result: Result<[League]?, Error>) in
+        self.api.fetchData(for: sport, queryItems: queryItems) { (result: Result<[League]?, Error>) in
             switch result {
             case .success(let leagues):
-                    completion(.success(leagues))
-                
+                completion(.success(leagues))
+                self.sportdb.saveLeagues(leagues: leagues ?? [],sport: sport)
             case .failure(let error):
                 completion(.failure(error))
+                
             }
         }
+        
     }
     
     func fetchFixtures(for sport: Sport, leagueId: Int, completion: @escaping (Result<[Event]?, Error>) -> Void) {

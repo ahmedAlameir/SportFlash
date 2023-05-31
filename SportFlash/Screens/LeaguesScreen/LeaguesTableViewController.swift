@@ -26,7 +26,7 @@ class LeaguesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     func setupViewModel() {
-        viewModel = LeaguesViewModel(sportsRepository: SportsRepositoryImpl(api: SportsAPI()),sport: sport)
+        viewModel = LeaguesViewModel(sportsRepository: SportsRepositoryImpl(api: SportsAPI(), sportdb:  DatabaseManager.shared),sport: sport)
         
         viewModel.onDataUpdated = { [weak self] in
             self?.tableView.reloadData()

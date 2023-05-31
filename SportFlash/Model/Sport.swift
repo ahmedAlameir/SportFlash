@@ -24,6 +24,19 @@ enum Sport {
         }
         
     }
+    var id: Int {
+        switch self {
+        case .football:
+            return 1
+        case .basketball:
+            return 2
+        case .cricket:
+            return 3
+        case .tennis:
+            return 4
+        }
+        
+    }
     var logo: String {
         switch self {
         case .football:

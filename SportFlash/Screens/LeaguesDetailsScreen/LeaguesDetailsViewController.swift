@@ -23,7 +23,7 @@ class LeaguesDetailsViewController: UIViewController {
     @IBOutlet weak var teamsCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = LeaguesDetailsViewModel(sportsRepository: SportsRepositoryImpl(api: SportsAPI()),leagueId: leaguseID ,sport: sport)
+        viewModel = LeaguesDetailsViewModel(sportsRepository: SportsRepositoryImpl(api: SportsAPI(),sportdb: DatabaseManager.shared),leagueId: leaguseID ,sport: sport)
         viewModel.upComingEventsUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.upComingEventCollectionView.reloadData()
