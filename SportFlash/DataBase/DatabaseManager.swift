@@ -31,7 +31,7 @@ class DatabaseManager {
     func saveTeam(team: Team) {
         let teamEntity = NSEntityDescription.insertNewObject(forEntityName: "TeamEntity", into: managedContext) as! TeamEntity
         
-        teamEntity.teamKey = Int32(team.teamKey ?? 0)
+        teamEntity.teamKey = Int32(team.teamKey )
         teamEntity.teamName = team.teamName
         teamEntity.teamLogo = team.teamLogo
         

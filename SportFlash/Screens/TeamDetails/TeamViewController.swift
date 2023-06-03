@@ -10,7 +10,10 @@ import Kingfisher
 class TeamViewController: UIViewController {
     var team:Team!
     var teamViewModel:TeamViewModel!
-
+    var heartButton : UIBarButtonItem!
+    let emptyHeartImage = UIImage(systemName:  "heart")
+    let filledHeartImage = UIImage(systemName: "heart.fill")
+    
     @IBOutlet weak var playersTable: UITableView!
     @IBOutlet weak var teamName: UILabel!
     @IBOutlet weak var teamLogoImageView: UIImageView!
@@ -32,31 +35,29 @@ class TeamViewController: UIViewController {
         let teamExists = teamViewModel.teamExists(teamId: teamId)
         
         // Create an empty heart and filled heart image
-        let emptyHeartImage = UIImage(named: "emptyHeartIcon")
-        let filledHeartImage = UIImage(named: "filledHeartIcon")
-        
+       
         // Create a UIButton with the appropriate heart image
-        let heartButton = UIButton(type: .custom)
-        heartButton.setImage(teamExists ? filledHeartImage : emptyHeartImage, for: .normal)
-        heartButton.addTarget(self, action: #selector(heartButtonTapped(isTeamExists:)), for: .touchUpInside)
-        heartButton.sizeToFit()
-        
+        //heartButton.setImage(teamExists ? filledHeartImage : emptyHeartImage, for: .normal)
+        heartButton = UIBarButtonItem(image: (teamExists ? filledHeartImage : emptyHeartImage), style: .plain, target: self, action: #selector(heartButtonTapped))
+
         // Create a UIBarButtonItem with the heart button as a custom view
-        let heartBarButtonItem = UIBarButtonItem(customView: heartButton)
-        
+        navigationItem.rightBarButtonItem = heartButton
         // Set the heart button as the right bar button item
-        navigationItem.rightBarButtonItem = heartBarButtonItem
     }
     
-    @objc func heartButtonTapped(isTeamExists: Bool) {
-        if isTeamExists {
+    @objc func heartButtonTapped() {
+        let teamId = team.teamKey
+        // Check if the team exists in the database
+        let teamExists = teamViewModel.teamExists(teamId: teamId)
+        if teamExists {
             teamViewModel.deleteTeam(teamId: team.teamKey)
+            heartButton.image = emptyHeartImage
             
         }else{
             teamViewModel.insertTeam(team: team)
+            heartButton.image = filledHeartImage
 
         }
-        customizeNavigationItem()
     }
 
     /*

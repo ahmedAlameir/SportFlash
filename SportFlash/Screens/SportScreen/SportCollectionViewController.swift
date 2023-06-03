@@ -77,7 +77,7 @@ class SportCollectionViewController: UICollectionViewController {
     }
   
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let leaguesVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesTableViewController") as! LeaguesTableViewController
+        let leaguesVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesViewController") as! LeaguesViewController
        
         leaguesVC.sport = sports[indexPath.row]
         navigationController?.pushViewController(leaguesVC, animated: true)

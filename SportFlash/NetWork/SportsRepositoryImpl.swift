@@ -30,7 +30,6 @@ class SportsRepositoryImpl:SportsRepository{
             switch result {
             case .success(let leagues):
                 completion(.success(leagues))
-                self.sportdb.saveLeagues(leagues: leagues ?? [],sport: sport)
             case .failure(let error):
                 completion(.failure(error))
                 

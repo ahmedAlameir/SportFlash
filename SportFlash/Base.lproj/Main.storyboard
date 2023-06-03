@@ -31,7 +31,7 @@
         <!--2-->
         <scene sceneID="TjU-G1-l2J">
             <objects>
-                <tableViewController id="Zge-IQ-YIV" sceneMemberID="viewController">
+                <tableViewController id="Zge-IQ-YIV" customClass="FavouriteTableViewController" customModule="SportFlash" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="xh9-UT-hbM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -47,10 +47,54 @@
             </objects>
             <point key="canvasLocation" x="54" y="497"/>
         </scene>
+        <!--Leagues View Controller-->
+        <scene sceneID="ldX-Ee-4fF">
+            <objects>
+                <viewController storyboardIdentifier="LeaguesViewController" hidesBottomBarWhenPushed="YES" id="5Yb-KD-fZR" customClass="LeaguesViewController" customModule="SportFlash" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YY3-F4-H2m">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5Rw-qS-1Fq">
+                                <rect key="frame" x="0.0" y="95" width="414" height="767"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="5Yb-KD-fZR" id="4lS-8e-CtE"/>
+                                    <outlet property="delegate" destination="5Yb-KD-fZR" id="6sx-mF-Wo4"/>
+                                </connections>
+                            </tableView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="1wb-Vw-M2o">
+                                <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5Yb-KD-fZR" id="N4i-7r-hx4"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8kh-Ym-k3d"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="5Rw-qS-1Fq" firstAttribute="top" secondItem="1wb-Vw-M2o" secondAttribute="bottom" id="EVw-rV-z0K"/>
+                            <constraint firstItem="1wb-Vw-M2o" firstAttribute="leading" secondItem="8kh-Ym-k3d" secondAttribute="leading" id="GdO-XU-Jzx"/>
+                            <constraint firstItem="8kh-Ym-k3d" firstAttribute="trailing" secondItem="5Rw-qS-1Fq" secondAttribute="trailing" id="NxI-L5-Hn8"/>
+                            <constraint firstItem="1wb-Vw-M2o" firstAttribute="top" secondItem="8kh-Ym-k3d" secondAttribute="top" id="QSE-6z-Qtq"/>
+                            <constraint firstAttribute="trailing" secondItem="1wb-Vw-M2o" secondAttribute="trailing" id="Ugf-R8-80E"/>
+                            <constraint firstItem="5Rw-qS-1Fq" firstAttribute="leading" secondItem="8kh-Ym-k3d" secondAttribute="leading" id="VGX-Nx-Z4O"/>
+                            <constraint firstItem="8kh-Ym-k3d" firstAttribute="bottom" secondItem="5Rw-qS-1Fq" secondAttribute="bottom" id="xm0-D6-tA2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="leaguesTableView" destination="5Rw-qS-1Fq" id="TTK-V6-Jyw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z1h-ak-aRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1459" y="-167"/>
+        </scene>
         <!--Sports-->
         <scene sceneID="2Kk-jF-eGC">
             <objects>
-                <collectionViewController hidesBottomBarWhenPushed="YES" id="1I8-JR-8kq" customClass="SportCollectionViewController" customModule="SportFlash" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="1I8-JR-8kq" customClass="SportCollectionViewController" customModule="SportFlash" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="E8K-G8-kpg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -72,24 +116,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9LH-C3-o0R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="767" y="-167"/>
-        </scene>
-        <!--Leagues Table View Controller-->
-        <scene sceneID="xJp-DH-grk">
-            <objects>
-                <tableViewController storyboardIdentifier="LeaguesTableViewController" id="dZI-sO-1ig" customClass="LeaguesTableViewController" customModule="SportFlash" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vuh-sL-rq5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <connections>
-                            <outlet property="dataSource" destination="dZI-sO-1ig" id="xla-n3-zFt"/>
-                            <outlet property="delegate" destination="dZI-sO-1ig" id="v4x-ZM-Fp0"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ejr-i4-FwE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1451" y="-167"/>
         </scene>
         <!--Leagues Details View Controller-->
         <scene sceneID="vPo-dF-JIK">
