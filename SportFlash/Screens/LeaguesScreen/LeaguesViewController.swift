@@ -52,7 +52,7 @@ extension LeaguesViewController: UITableViewDelegate {
         
         let leaguesDetailsVC = storyboard?.instantiateViewController(withIdentifier: "LeaguesDetailsViewController") as! LeaguesDetailsViewController
         leaguesDetailsVC.sport = sport
-        leaguesDetailsVC.leaguseID = Int(selectedLeague.leagueKey)
+        leaguesDetailsVC.leagueID = Int(selectedLeague.leagueKey)
         navigationController?.pushViewController(leaguesDetailsVC, animated: true)
     }
 }
