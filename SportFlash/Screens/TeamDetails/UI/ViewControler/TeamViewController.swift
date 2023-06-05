@@ -79,11 +79,12 @@ extension TeamViewController:UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PlayerCell", for: indexPath)
         if let playerImage = team?.players?[indexPath.row].playerImage {
-            cell.imageView?.kf.setImage(with: URL(string: playerImage))
+            cell.imageView?.kf.setImage(with: URL(string: playerImage),placeholder: UIImage(named: "placeholder_image"))
 
         }
         if let playerName = team?.players?[indexPath.row].playerName {
             cell.textLabel?.text = playerName
+            cell.imageView?.image =  UIImage(named: "placeholder_image")
 
         }
         return cell

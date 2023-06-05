@@ -11,4 +11,6 @@ protocol SportsRepository {
     func fetchFixtures(for sport: Sport, leagueId: Int, completion: @escaping (Result<[Event]?, Error>) -> Void)
     func fetchLivescore(for sport: Sport, leagueId: Int, completion: @escaping (Result<[Event]?, Error>) -> Void)
     func fetchTeams(for sport: Sport, leagueId: Int, completion: @escaping (Result<[Team]?, Error>) -> Void)
+    func fetchPlayers(for sport: Sport, leagueId: Int, completion: @escaping (Result<[Player]?, Error>) -> Void)
+
 }

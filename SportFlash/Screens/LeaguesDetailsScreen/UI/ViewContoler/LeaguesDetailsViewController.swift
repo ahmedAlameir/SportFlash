@@ -197,7 +197,11 @@ extension LeaguesDetailsViewController : UICollectionViewDelegate,UICollectionVi
         case latestEventCollectionView:
             return viewModel.latestEventsCount()
         case teamsCollectionView:
-            return viewModel.teamsCount()
+            if sport ==  Sport.tennis {
+                return viewModel.playersCount()
+            }else{
+                return viewModel.teamsCount()
+            }
         default:
             return 0
         }
@@ -218,7 +222,14 @@ extension LeaguesDetailsViewController : UICollectionViewDelegate,UICollectionVi
             return cell
         case teamsCollectionView:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: teamReuseIdentifier, for: indexPath) as! TeamsCollectionViewCell
-            if let teamLogo =  viewModel.team(at: indexPath.row).teamLogo {
+            let logo:String?
+            if sport == Sport.tennis {
+                logo =  viewModel.players(at: indexPath.row).playerImage
+            }else{
+                logo = viewModel.team(at: indexPath.row).teamLogo
+            }
+            
+            if let teamLogo = logo {
                 cell.teamsImage.kf.setImage(with:URL(string:teamLogo))
             }else{
                 cell.teamsImage.image = UIImage(named: sport.logo)
@@ -232,9 +243,12 @@ extension LeaguesDetailsViewController : UICollectionViewDelegate,UICollectionVi
         
         
         if collectionView == teamsCollectionView {
-            let teamVC = storyboard?.instantiateViewController(withIdentifier: "TeamViewController") as! TeamViewController
-            teamVC.team = viewModel.team(at: indexPath.row)
-            navigationController?.pushViewController(teamVC, animated: true)
+            if sport != Sport.tennis {
+                let teamVC = storyboard?.instantiateViewController(withIdentifier: "TeamViewController") as! TeamViewController
+                teamVC.team = viewModel.team(at: indexPath.row)
+                navigationController?.pushViewController(teamVC, animated: true)
+            }
+            
         }
         
     }

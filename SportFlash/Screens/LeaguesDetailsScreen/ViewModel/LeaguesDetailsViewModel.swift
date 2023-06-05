@@ -15,13 +15,17 @@ class LeaguesDetailsViewModel {
     var onUpcomingEventsUpdated: (() -> Void)?
     var onLatestEventsUpdated: (() -> Void)?
     var onTeamsUpdated: (() -> Void)?
+
     var onUpcomingError: ((SportsError) -> Void)?
     var onLatestError: ((SportsError) -> Void)?
     var onTeamsError: ((SportsError) -> Void)?
 
+    
     private var upComingEvents: [Event] = []
     private var latestEvents: [Event] = []
     private var teams: [Team] = []
+    private var players: [Player] = []
+
 
     init(sportsRepository: SportsRepository, leagueId: Int, sport: Sport) {
         self.sportsRepository = sportsRepository
@@ -32,7 +36,11 @@ class LeaguesDetailsViewModel {
     func fetchData() {
         fetchUpcomingEvents()
         fetchLatestEvents()
-        fetchTeams()
+        if sport == Sport.tennis {
+            fetchPlayer()
+        }else{
+            fetchTeams()
+        }
     }
 
     private func fetchUpcomingEvents() {
@@ -94,7 +102,25 @@ class LeaguesDetailsViewModel {
             onTeamsError?(SportsError.noDataAvailable)
         }
     }
+    private func fetchPlayer() {
+        sportsRepository.fetchPlayers(for: sport, leagueId: leagueId) { [weak self] result in
+            switch result {
+            case .success(let player):
+                self?.handlePlayerResult(player)
+            case .failure(_):
+                self?.onTeamsError?(SportsError.invalidResponse)
+            }
+        }
+    }
 
+    private func handlePlayerResult(_ player: [Player]?) {
+        if let player = player {
+            self.players = player
+            onTeamsUpdated?()
+        } else {
+            onTeamsError?(SportsError.noDataAvailable)
+        }
+    }
     // Provide necessary methods to access data in the view controller
     func upComingEventsCount() -> Int {
         return upComingEvents.count
@@ -107,7 +133,9 @@ class LeaguesDetailsViewModel {
     func teamsCount() -> Int {
         return teams.count
     }
-
+    func playersCount() -> Int {
+        return players.count
+    }
     func upComingEvent(at index: Int) -> Event {
         return upComingEvents[index]
     }
@@ -119,7 +147,9 @@ class LeaguesDetailsViewModel {
     func team(at index: Int) -> Team {
         return teams[index]
     }
-
+    func players(at index: Int) -> Player {
+        return players[index]
+    }
     func teamLogo(at index: Int) -> String? {
         return teams[index].teamLogo
     }

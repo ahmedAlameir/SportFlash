@@ -7,7 +7,7 @@
 
 import Foundation
 import CoreData
-class SportsAPI {
+class SportsAPI:SportsAPIProtocol {
     private let baseURL: URL
     
     init() {
